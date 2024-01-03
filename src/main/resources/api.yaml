@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: SendEmail API
+  version: 1.0.0
+  description: Local server
+servers:
+  - url: localhost:8081/api
+    description: Local server
+
+
+paths:
+  /sendEmailToQueue:
+    post:
+      summary: Create a new email request
+      operationId: createEmailRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailResponse'
+
+components:
+  schemas:
+    EmailRequest:
+      type: object
+      properties:
+        to:
+          type: string
+        topic:
+          type: string
+        body:
+          type: string
+
+    EmailResponse:
+      type: object
+      properties:
+        topic:
+          type: string
+        status:
+          type: string
